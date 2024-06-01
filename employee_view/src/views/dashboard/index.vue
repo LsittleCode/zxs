@@ -13,9 +13,6 @@ const listData = ref(null as any)
 const getData = async () => {
     const { data: { list } } = await getdata()
     listData.value = list
-    console.log(listData.value);
-
-
     peopleNum.value = list?.employee[0]?.pepNum
 }
 getData()

@@ -1,7 +1,9 @@
 import axios from 'axios'
-
+import router from '@/router/main'
+import {useSysStore} from '@/store/sys'
+const sysStore = useSysStore()
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1',
+  baseURL: 'http://100.70.47.96/api',
   timeout: 1000
 })
 
@@ -10,6 +12,11 @@ instance.interceptors.response.use(
     return res.data
   },
   (error) => {
+    console.log(error)
+    if(error?.response?.data?.data?.mes=== 'invalid token'){
+      sysStore.updateToken('')
+      router.push('/login')
+    }
     return error?.response?.data
   }
 )

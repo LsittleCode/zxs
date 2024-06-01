@@ -1,5 +1,3 @@
-import path from 'path'
-
 import {Router}  from 'express'
 import {login,regist,getInfo} from '../contorlles/user.js'
 

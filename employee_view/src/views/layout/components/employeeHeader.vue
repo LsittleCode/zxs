@@ -1,9 +1,10 @@
 <script setup>
 import { useUserStore } from '@/store/user'
-import darkswitch from './eldark.vue';
+import { useSysStore } from '@/store/sys'
+import darkswitch from './eldark.vue'
 import { showMes } from '@/utlis/notify'
 import { bindID } from '@/api/dashboard'
-
+const sysStore = useSysStore()
 const userStore = useUserStore()
 const popper = {
     display: 'flex',
@@ -31,6 +32,12 @@ const submit = async () => {
 
     }
 }
+
+
+const cancelHander = ()=>{
+    sysStore.updateToken('')
+    location.href='/login'
+}
 </script>
 <template>
     <div class="header_container">
@@ -39,25 +46,47 @@ const submit = async () => {
                 <el-avatar :src="userStore?.info?.avatar">{{ userStore?.info?.avatar ? '' :
                     userStore?.info?.name }}</el-avatar>
             </template>
-            <p @click="handerUser">绑定用户</p>
+            <p>绑定身份</p>
             <div class="nickname">
                 <span>用户名：</span>
                 <span>{{ userStore?.info?.name }}</span>
             </div>
-            <p>修改密码</p>
-            <p>注销</p>
+            <p @click="handerUser">修改密码</p>
+            
+            <el-popconfirm title="确定退出系统" @confirm="cancelHander">
+                <template #reference>
+                    <p>注销</p>
+                </template>
+            </el-popconfirm>
         </el-popover>
         <darkswitch />
     </div>
 
     <el-dialog @close="close" v-model="isShow">
-        <el-form-item label="ID号：">
+        <el-form-item label="旧密码">
+            <el-input v-model="emID"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码">
             <el-input v-model="emID"></el-input>
         </el-form-item>
         <template #footer>
             <el-button @click="submit" type="primary">确定</el-button>
         </template>
     </el-dialog>
+
+
+
+
+
+
+    <!-- <el-dialog @close="close" v-model="isShow">
+        <el-form-item label="ID号：">
+            <el-input v-model="emID"></el-input>
+        </el-form-item>
+        <template #footer>
+            <el-button @click="submit" type="primary">确定</el-button>
+        </template>
+    </el-dialog> -->
 </template>
 
 <style lang='less' scoped>

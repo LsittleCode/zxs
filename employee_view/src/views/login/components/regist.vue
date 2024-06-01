@@ -3,7 +3,7 @@ const prop = defineProps(['isShowDialog'])
 const emit = defineEmits(['update'])
 
 const closeDialog = () => {
-    emit('update:isShowDialog', false)
+    emit('update:isShowDialog' as any, false)
 }
 
 interface regist {

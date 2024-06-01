@@ -2,13 +2,18 @@
 import { mouseMoveBackgrounp, formData, formRules, submit, form } from './login.ts'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-
+import regist from './components/regist.vue'
 
 const container = ref(null)
 const isShowDialog = ref(false)
 onMounted(() => {
     mouseMoveBackgrounp(container)
 })
+
+
+const a = ()=>{
+    isShowDialog.value = true
+}
 </script>
 <template>
     <div class="container" ref="container">
@@ -25,7 +30,7 @@ onMounted(() => {
             </el-form-item>
             <el-form-item class="submit">
                 <el-button @click="submit" style="width: 180px" type="primary">登录</el-button>
-                <el-button @click="isShowDialog = true" style="width: 180px" type="info">注册</el-button>
+                <el-button @click="a" style="width: 180px" type="info">注册</el-button>
             </el-form-item>
         </el-form>
     </div>

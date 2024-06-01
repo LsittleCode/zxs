@@ -75,7 +75,7 @@ router.beforeEach((to, from, next) => {
     if (sysStore.token) {
       next()
     } else {
-      next('login')
+      next('/login')
     }
   }
 })
